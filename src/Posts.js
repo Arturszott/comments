@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 
 import useFetch from './useFetch';
@@ -17,6 +17,7 @@ const PostsWrapper = styled.section`
 `;
 
 function Posts() {
+	const [activePostId, setActivePostId] = useState(null);
 	const { data: posts, loading, error } = useFetch({
 		url: 'http://jsonplaceholder.typicode.com/posts',
 		initialData: []
@@ -26,7 +27,14 @@ function Posts() {
 		<PostsWrapper>
 			{loading && <Spinner />}
 			{posts.map((post) => {
-				return <Post {...post} key={post.id} />;
+				return (
+					<Post
+						{...post}
+						key={post.id}
+						isActive={Boolean(activePostId) && activePostId === post.id}
+						setActivePost={setActivePostId}
+					/>
+				);
 			})}
 		</PostsWrapper>
 	);
