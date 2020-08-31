@@ -10,19 +10,21 @@ const PostsWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
 	flex: 2;
-	background-color: #0e1729;
 	overflow: auto;
+	background-color: #0e1729;
+	padding: 10px;
+	align-items: center;
 `;
 
 function Posts() {
-	const { data: posts, loading, error } = useFetch({ url: 'http://jsonplaceholder.typicode.com/posts' });
-
-	if (loading) {
-		return <Spinner />;
-	}
+	const { data: posts, loading, error } = useFetch({
+		url: 'http://jsonplaceholder.typicode.com/posts',
+		initialData: []
+	});
 
 	return (
 		<PostsWrapper>
+			{loading && <Spinner />}
 			{posts.map((post) => {
 				return <Post {...post} key={post.id} />;
 			})}
