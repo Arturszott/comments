@@ -3,9 +3,22 @@ import styled from 'styled-components/macro';
 
 const SpinnerAnimated = styled.div`
 	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	animation: spin 0.3s linear 0s infinite;
 `;
 
-function Spinner({ size }) {
+function Spinner({ size = 20 }) {
 	return (
 		<SpinnerAnimated>
 			<svg width={size} height={size} viewBox="0 0 82 82" fill="none" xmlns="http://www.w3.org/2000/svg">
