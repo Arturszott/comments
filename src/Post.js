@@ -19,6 +19,7 @@ const PostWrapper = styled.article`
 	}
 
 	::after {
+		transition: opacity 0.2s ease;
 		content: '';
 		display: block;
 		background: #e396b1;

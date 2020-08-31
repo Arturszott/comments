@@ -4,12 +4,12 @@ import styled from 'styled-components/macro';
 const CommentWrapper = styled.article`
 	display: flex;
 	flex-direction: column;
-	padding: 20px;
+	padding: 10px;
+	padding-bottom: 30px;
 	margin-bottom: 10px;
 
 	background: white;
 	border-radius: 5px;
-	cursor: pointer;
 `;
 
 const P = styled.p`
