@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 
-function useFetch({ url, initialData }) {
+function useFetch({ url, initialData, skip }) {
 	const [data, setData] = useState(initialData);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	if (!url) throw new Error('Url has to be provided');
 
 	useEffect(() => {
+		if (skip) return;
 		setLoading(true);
 
 		fetch(url)
@@ -21,7 +22,7 @@ function useFetch({ url, initialData }) {
 			.finally(() => {
 				setLoading(false);
 			});
-	}, [url]);
+	}, [url, skip]);
 
 	return { data, error, loading };
 }

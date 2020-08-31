@@ -52,8 +52,6 @@ function Post({ title, body, id, userId, isActive, setActivePost }) {
 		setActivePost(id);
 	}, [id, setActivePost]);
 
-	console.log(isActive);
-
 	return (
 		<PostWrapper isActive={isActive} onClick={setToActive}>
 			<Title>{title}</Title>

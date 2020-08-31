@@ -3,31 +3,35 @@ import styled from 'styled-components/macro';
 
 import useFetch from './useFetch';
 
-import Post from './Post';
+import Comment from './Comment';
 import Spinner from './Spinner';
 
-const PostsWrapper = styled.section`
+const CommentsWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
 	flex: 2;
 	background-color: #0a1222;
+	align-items: center;
 	overflow: auto;
+	padding: 10px;
 `;
 
-function Posts() {
-	const { data: posts, loading, error } = useFetch({ url: 'http://jsonplaceholder.typicode.com/posts' });
-
-	if (loading) {
-		return <Spinner />;
-	}
+function Comments({ postId }) {
+	const { data: comments, loading, error } = useFetch({
+		url: `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
+		initialData: [],
+		skip: !postId
+	});
 
 	return (
-		<PostsWrapper>
-			{posts.map((post) => {
-				return <Post {...post} key={post.id} />;
-			})}
-		</PostsWrapper>
+		<CommentsWrapper>
+			{loading && <Spinner />}
+			{!loading &&
+				comments.map((post) => {
+					return <Comment {...post} key={post.id} />;
+				})}
+		</CommentsWrapper>
 	);
 }
 
-export default Posts;
+export default Comments;

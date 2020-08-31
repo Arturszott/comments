@@ -16,8 +16,7 @@ const PostsWrapper = styled.section`
 	align-items: center;
 `;
 
-function Posts() {
-	const [activePostId, setActivePostId] = useState(null);
+function Posts({ setActivePostId, activePostId }) {
 	const { data: posts, loading, error } = useFetch({
 		url: 'http://jsonplaceholder.typicode.com/posts',
 		initialData: []
