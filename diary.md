@@ -6,3 +6,4 @@
 6. Display comments of selected post - 30 min
 7. Inputs for tag suggestions and comment text - 60 min
 8. Use autocompletion for tags and add both admin comment and tag to the post comment - 60 min
+9. Display top three tags within a graph - 40 min
