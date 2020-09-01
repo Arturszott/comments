@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useContext } from 'react';
 
-const TagContext = React.createContext([]);
+const TagContext = React.createContext({});
 
 const defaultTags = [
 	{ id: 0, name: 'SuperFan' },
@@ -19,6 +19,7 @@ const defaultTagsById = defaultTags.reduce((allTags, tag) => {
 function TagContextProvider(props) {
 	const [tags, setTags] = useState(defaultTags);
 	const [tagsById, setTagsById] = useState(defaultTagsById);
+	const [tagsByCommentId, setTagsByCommentId] = useState({});
 
 	const value = useMemo(
 		() => ({
@@ -34,9 +35,13 @@ function TagContextProvider(props) {
 					[newTag.id]: newTag
 				});
 			},
-			tagsById
+			tagComment(commentId, tagIds) {
+				setTagsByCommentId({ ...tagsByCommentId, [commentId]: tagIds });
+			},
+			tagsById,
+			tagsByCommentId
 		}),
-		[tags]
+		[tags, tagsById, tagsByCommentId]
 	);
 
 	return <TagContext.Provider value={value}>{props.children}</TagContext.Provider>;
