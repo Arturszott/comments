@@ -134,6 +134,7 @@ function Comment({ body, id, userId }) {
 							onChange={(event) => setInputValue(event.target.value)}
 						/>
 						<button
+							disabled={inputValue.length === 0}
 							onClick={() => {
 								addComment(id, inputValue);
 								setAction(null);
@@ -161,6 +162,7 @@ function Comment({ body, id, userId }) {
 								}}
 							/>
 							<button
+								disabled={selectedTagIds.length === 0}
 								onClick={() => {
 									tagComment(id, selectedTagIds);
 									setAction(null);
