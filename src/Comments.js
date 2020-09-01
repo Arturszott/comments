@@ -68,7 +68,7 @@ function Comments({ postId }) {
 	return (
 		<CommentsWrapper>
 			{loading && <Spinner />}
-			{comments.length > 0 && (
+			{!loading && comments.length > 0 && (
 				<GraphWrapper>
 					<PieChart
 						data={topThreeTags}
@@ -81,9 +81,10 @@ function Comments({ postId }) {
 					;
 				</GraphWrapper>
 			)}
-			{comments.map((post) => {
-				return <Comment {...post} key={post.id} />;
-			})}
+			{!loading &&
+				comments.map((post) => {
+					return <Comment {...post} key={post.id} />;
+				})}
 		</CommentsWrapper>
 	);
 }
