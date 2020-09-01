@@ -33,7 +33,7 @@ const labelStyle = {
 	fontWeight: 'bold'
 };
 
-function Comments({ postId }) {
+function Comments({ postId, selectedTagIds }) {
 	const { tagsByCommentId, tagsById } = useTagContext();
 	const { data: comments, loading, error } = useFetch({
 		url: `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
@@ -82,9 +82,19 @@ function Comments({ postId }) {
 				</GraphWrapper>
 			)}
 			{!loading &&
-				comments.map((post) => {
-					return <Comment {...post} key={post.id} />;
-				})}
+				comments
+					.filter((comment) => {
+						const commentTags = tagsByCommentId[comment.id];
+
+						if (selectedTagIds.length > 0 && !commentTags) {
+							return false;
+						}
+
+						return selectedTagIds.every((tagId) => tagsByCommentId[comment.id].includes(tagId));
+					})
+					.map((post) => {
+						return <Comment {...post} key={post.id} />;
+					})}
 		</CommentsWrapper>
 	);
 }

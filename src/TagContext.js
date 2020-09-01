@@ -3,13 +3,13 @@ import React, { useState, useMemo, useContext } from 'react';
 const TagContext = React.createContext({});
 
 const defaultTags = [
-	{ id: 0, name: 'SuperFan' },
-	{ id: 1, name: 'Thank You' },
-	{ id: 2, name: 'SPAM' },
-	{ id: 3, name: 'Disgusting' },
-	{ id: 4, name: 'Profanity' },
-	{ id: 5, name: 'Needs Explanation' },
-	{ id: 6, name: 'Feedback' }
+	{ id: '0', name: 'SuperFan' },
+	{ id: '1', name: 'Thank You' },
+	{ id: '2', name: 'SPAM' },
+	{ id: '3', name: 'Disgusting' },
+	{ id: '4', name: 'Profanity' },
+	{ id: '5', name: 'Needs Explanation' },
+	{ id: '6', name: 'Feedback' }
 ];
 
 const defaultTagsById = defaultTags.reduce((allTags, tag) => {
