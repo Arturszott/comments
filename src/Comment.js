@@ -115,9 +115,10 @@ function Comment({ body, id, userId }) {
 			<CommentBody>
 				<P>
 					{body}
-					{commentTags && commentTags.map((tagId) => <Tag key={tagId}>{tagsById[tagId].name}</Tag>)}
 					{adminComment && <AdminComment>Comment: {adminComment.text}</AdminComment>}
 				</P>
+				<div>{commentTags && commentTags.map((tagId) => <Tag key={tagId}>{tagsById[tagId].name}</Tag>)}</div>
+
 				<CommentActions>
 					{!adminComment && <button onClick={() => setAction(ACTIONS.COMMENT)}>Comment</button>}
 					{!commentTags && <button onClick={() => setAction(ACTIONS.TAG)}>Tag</button>}
