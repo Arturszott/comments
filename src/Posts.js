@@ -16,7 +16,7 @@ const PostsWrapper = styled.section`
 	align-items: center;
 `;
 
-function Posts({ setActivePostId, activePostId }) {
+function Posts({ setActivePostId, activePostId, selectedUserId }) {
 	const { data: posts, loading, error } = useFetch({
 		url: 'http://jsonplaceholder.typicode.com/posts',
 		initialData: []
@@ -25,18 +25,20 @@ function Posts({ setActivePostId, activePostId }) {
 	return (
 		<PostsWrapper>
 			{loading && <Spinner />}
-			{posts.map((post) => {
-				return (
-					<Post
-						{...post}
-						key={post.id}
-						isActive={Boolean(activePostId) && activePostId === post.id}
-						setActivePost={setActivePostId}
-					/>
-				);
-			})}
+			{posts
+				.filter((post) => selectedUserId === null || post.userId.toString() === selectedUserId)
+				.map((post) => {
+					return (
+						<Post
+							{...post}
+							key={post.id}
+							isActive={Boolean(activePostId) && activePostId === post.id}
+							setActivePost={setActivePostId}
+						/>
+					);
+				})}
 		</PostsWrapper>
 	);
 }
 
-export default Posts;
+export default React.memo(Posts);

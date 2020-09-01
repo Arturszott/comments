@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components/macro';
 
+import { useUsersContext } from './UsersContext';
+
 const PostWrapper = styled.article`
 	display: flex;
 	flex-direction: column;
@@ -49,14 +51,18 @@ const P = styled.p`
 `;
 
 function Post({ title, body, id, userId, isActive, setActivePost }) {
+	const { usersById } = useUsersContext();
 	const setToActive = useCallback(() => {
 		setActivePost(id);
 	}, [id, setActivePost]);
+
+	const userName = usersById[userId] && usersById[userId].username;
 
 	return (
 		<PostWrapper isActive={isActive} onClick={setToActive}>
 			<Title>{title}</Title>
 			<P>{body}</P>
+			<P>Author: {userName}</P>
 		</PostWrapper>
 	);
 }

@@ -108,7 +108,7 @@ function Comment({ body, id, userId }) {
 				setSelectedTagsIds([]);
 			}
 		}
-	}, [actionToTake]);
+	}, [actionToTake, selectedTagIds]);
 
 	return (
 		<CommentWrapper>

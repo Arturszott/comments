@@ -26,6 +26,15 @@ const GraphWrapper = styled.section`
 	padding: 10px;
 `;
 
+const NoResults = styled.section`
+	display: flex;
+	flex-direction: column;
+	background-color: #0a1222;
+	color: pink;
+	align-items: center;
+	padding: 5px;
+`;
+
 const labelStyle = {
 	padding: '2px',
 	fill: '#fff',
@@ -63,11 +72,24 @@ function Comments({ postId, selectedTagIds }) {
 					color: colors[i]
 				};
 			});
-	}, [comments, tagsByCommentId]);
+	}, [comments, tagsByCommentId, tagsById]);
+
+	const filteredComments = comments.filter((comment) => {
+		const commentTags = tagsByCommentId[comment.id];
+
+		if (selectedTagIds.length > 0 && !commentTags) {
+			return false;
+		}
+
+		return selectedTagIds.every((tagId) => tagsByCommentId[comment.id].includes(tagId));
+	});
 
 	return (
 		<CommentsWrapper>
 			{loading && <Spinner />}
+			{!loading && selectedTagIds.length > 0 && filteredComments.length === 0 && (
+				<NoResults>No comments for selected filters</NoResults>
+			)}
 			{!loading && comments.length > 0 && (
 				<GraphWrapper>
 					<PieChart
@@ -82,21 +104,11 @@ function Comments({ postId, selectedTagIds }) {
 				</GraphWrapper>
 			)}
 			{!loading &&
-				comments
-					.filter((comment) => {
-						const commentTags = tagsByCommentId[comment.id];
-
-						if (selectedTagIds.length > 0 && !commentTags) {
-							return false;
-						}
-
-						return selectedTagIds.every((tagId) => tagsByCommentId[comment.id].includes(tagId));
-					})
-					.map((post) => {
-						return <Comment {...post} key={post.id} />;
-					})}
+				filteredComments.map((post) => {
+					return <Comment {...post} key={post.id} />;
+				})}
 		</CommentsWrapper>
 	);
 }
 
-export default Comments;
+export default React.memo(Comments);

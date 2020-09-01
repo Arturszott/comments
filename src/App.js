@@ -5,6 +5,7 @@ import Posts from './Posts';
 import Comments from './Comments';
 import Filters from './Filters';
 import TagContextProvider from './TagContext';
+import UsersContextProvider from './UsersContext';
 import AdminCommentContextProvider from './AdminCommentContext';
 
 const AppWrapper = styled.main`
@@ -15,16 +16,28 @@ const AppWrapper = styled.main`
 function App() {
 	const [activePostId, setActivePostId] = useState(null);
 	const [selectedTagIds, setSelectedTagIds] = useState([]);
+	const [selectedUserId, setSelectedUserId] = useState(null);
 
 	return (
 		<AdminCommentContextProvider>
-			<TagContextProvider>
-				<Filters selectedTagIds={selectedTagIds} setSelectedTagIds={setSelectedTagIds} />
-				<AppWrapper>
-					<Posts activePostId={activePostId} setActivePostId={setActivePostId} />
-					<Comments postId={activePostId} selectedTagIds={selectedTagIds} />
-				</AppWrapper>
-			</TagContextProvider>
+			<UsersContextProvider>
+				<TagContextProvider>
+					<Filters
+						selectedTagIds={selectedTagIds}
+						setSelectedTagIds={setSelectedTagIds}
+						setSelectedUserId={setSelectedUserId}
+						selectedUserId={selectedUserId}
+					/>
+					<AppWrapper>
+						<Posts
+							activePostId={activePostId}
+							setActivePostId={setActivePostId}
+							selectedUserId={selectedUserId}
+						/>
+						<Comments postId={activePostId} selectedTagIds={selectedTagIds} />
+					</AppWrapper>
+				</TagContextProvider>
+			</UsersContextProvider>
 		</AdminCommentContextProvider>
 	);
 }
