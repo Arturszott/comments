@@ -88,7 +88,7 @@ const ACTIONS = {
 	TAG: 'TAG'
 };
 
-function Comment({ body, id, userId }) {
+function Comment({ body, id }) {
 	const { getSuggestions, tagsByCommentId, tagsById, tagComment } = useTagContext();
 	const { addComment, commentsById } = useAdminCommentContext();
 	const [actionToTake, setAction] = useState(null);
@@ -108,10 +108,11 @@ function Comment({ body, id, userId }) {
 				setSelectedTagsIds([]);
 			}
 		}
+		// eslint-disable-next-line
 	}, [actionToTake, selectedTagIds]);
 
 	return (
-		<CommentWrapper>
+		<CommentWrapper data-testid="comment">
 			<CommentBody>
 				<P>
 					{body}

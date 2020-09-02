@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useContext } from 'react';
 
-const AdminCommentContext = React.createContext({});
+export const AdminCommentContext = React.createContext({});
 
 function AdminCommentContextProvider(props) {
 	const [commentsById, setCommentsById] = useState({});

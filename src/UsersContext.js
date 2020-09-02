@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import useFetch from './useFetch';
 
-const UsersContext = React.createContext({});
+export const UsersContext = React.createContext({});
 
 function UsersContextProvider(props) {
 	const { data: users, loading, error } = useFetch({

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useContext } from 'react';
 
-const TagContext = React.createContext({});
+export const TagContext = React.createContext({});
 
 const defaultTags = [
 	{ id: '0', name: 'SuperFan' },
@@ -24,7 +24,7 @@ function TagContextProvider(props) {
 	const value = useMemo(
 		() => ({
 			getSuggestions(string) {
-				return tags.filter((tag) => tag.name.includes(string));
+				return tags.filter((tag) => tag.name.toLowerCase().includes(string.toLowerCase()));
 			},
 			addNewTag(name) {
 				const newTag = { id: tags.length, name };
